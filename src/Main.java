@@ -42,17 +42,12 @@ public class Main {
         distance = Double.parseDouble(st.nextToken().trim());
         averageHeartRate = Integer.parseInt(st.nextToken().trim());
         return new Activity(activityType, date, duration, distance, averageHeartRate);
-
-
-//        name = st.nextToken();
-//        id = Integer.parseInt(st.nextToken().trim());
-//        gpa = Double.parseDouble(st.nextToken().trim());
-//        return new student(name, id, gpa);
     }
 
 
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IOException {
+        ArrayList<Activity> activities = new ArrayList<>();
+        readCSVFile("activity_data_10.csv", activities, true);
     }
 }
