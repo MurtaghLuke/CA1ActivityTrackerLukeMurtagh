@@ -44,10 +44,24 @@ public class Main {
         return new Activity(activityType, date, duration, distance, averageHeartRate);
     }
 
+    public static void displayMenu(){
+        System.out.println("0: Sort by calories burned (Descending)");
+        System.out.println("1: Sort by date (Ascending)");
+        System.out.println("2: Sort by date (Descending)");
+        System.out.println("3: Sort by activity duration (Ascending)");
+        System.out.println("4: Sort by activity duration (Descending)");
+        System.out.println("5: Sort by type of activity");
+        System.out.println("6: Sort by distance (Ascending)");
+        System.out.println("7: Sort by distance (Descending)");
+    }
+
 
 
     public static void main(String[] args) throws IOException {
         ArrayList<Activity> activities = new ArrayList<>();
+        System.out.println("\n------Activity table------\n");
         readCSVFile("activity_data_10.csv", activities, true);
+        System.out.println("\n------Enter a number to sort the table------");
+        displayMenu();
     }
 }
