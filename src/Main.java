@@ -1,10 +1,6 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
 
 
 public class Main {
@@ -70,7 +66,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ArrayList<Activity> activities = new ArrayList<>();
         System.out.println("\n------Activity table------\n");
-        readCSVFile("activity_data_10.csv", activities, true);
+        readCSVFile("activity_data_50.csv", activities, true);
         System.out.println("\n------Enter a number to sort the table------");
         Scanner input = new Scanner(System.in);
 
@@ -82,11 +78,25 @@ public class Main {
                 case 1:
                     displayTable(activities);
                     break;
-                case 6:
-                    Collections.sort(activities, new ActivityComparator());
+                case 2:
+                    Collections.sort(activities, new DateComparator());
                     displayTable(activities);
                     break;
-            }
+                case 6:
+                    Collections.sort(activities, new ActivityNameComparator());
+                    displayTable(activities);
+                    break;
+                case 7:
+                    Collections.sort(activities, Collections.reverseOrder(new DistanceComparator()));
+                    displayTable(activities);
+                    break;
+                case 8:
+                    Collections.sort(activities, new DistanceComparator());
+                    displayTable(activities);
+                    break;
+
+
+        }
             }
         while (choice != 0);
     }
