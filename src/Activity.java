@@ -4,7 +4,7 @@ public class Activity
     private String date;
     private int duration;
     private double distance;
-    int averageHeartRate;
+    private int averageHeartRate;
 
 
     public Activity(String activityType, String date, int duration, double distance, int averageHeartRate) {
