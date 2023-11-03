@@ -83,17 +83,19 @@ public class Main {
             displayMenu();
             choice = input.nextInt();
             switch (choice) {
-//                case 1:
-//                    displayTable(activities);
-//                    break;
-                case 2:
-                    Collections.sort(activities, Collections.reverseOrder(new DateComparator()));
+                case 1:
+                    Collections.sort(activities, new CaloriesBurnedComparator());
                     displayTable(activities);
                     break;
-                case 3:
+                case 2:
                     Collections.sort(activities, new DateComparator());
                     displayTable(activities);
                     break;
+                case 3:
+                    Collections.sort(activities, Collections.reverseOrder(new DateComparator()));
+                    displayTable(activities);
+                    break;
+
                 case 4:
                     Collections.sort(activities, new DurationComparator());
                     displayTable(activities);
