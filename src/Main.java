@@ -53,12 +53,20 @@ public class Main {
         System.out.println("8: Sort by distance (Descending)");
     }
 
+
     public static void displayTable(ArrayList<Activity> entries) {
-        System.out.printf("%-20s %-15s %-15s %-15s %-15s%n", "Activity", "Date", "Duration", "Distance", "Average heart rate");
+        System.out.printf("%-20s %-15s %-15s %-15s %-15s %16s %20s%n", "Activity", "Date", "Duration", "Distance", "Average heart rate", "Intensity", "Calories burned");
+
+        //set intensity for each line
+        for (Activity activity : entries) {
+            activity.setIntensity();
+            activity.setCaloriesBurned();
+        }
 
         for (Activity s : entries) {
-            System.out.printf("%-20s %-15s %-15d %-15.2f %-15d%n", s.getActivityType(), s.getDate(), s.getDuration(), s.getDistance(), s.getAverageHeartRate());
+            System.out.printf("%-20s %-15s %-15d %-15.2f %-15d %20s %20.2f%n", s.getActivityType(), s.getDate(), s.getDuration(), s.getDistance(), s.getAverageHeartRate(), s.getIntensity(), s.getCaloriesBurned());
         }
+
     }
 
 
@@ -66,7 +74,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ArrayList<Activity> activities = new ArrayList<>();
         System.out.println("\n------Activity table------\n");
-        readCSVFile("activity_data_50.csv", activities, true);
+        readCSVFile("activity_data_100.csv", activities, true);
         System.out.println("\n------Enter a number to sort the table------");
         Scanner input = new Scanner(System.in);
 
@@ -98,6 +106,7 @@ public class Main {
                     Collections.sort(activities, new ActivityNameComparator());
                     displayTable(activities);
                     break;
+
                 case 7:
                     Collections.sort(activities, Collections.reverseOrder(new DistanceComparator()));
                     displayTable(activities);
@@ -107,9 +116,13 @@ public class Main {
                     displayTable(activities);
                     break;
 
-
-        }
             }
+        }
         while (choice != 0);
+
     }
+
+
+
+
 }
