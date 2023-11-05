@@ -4,7 +4,6 @@ import java.util.*;
 
 
 public class Main {
-
     public static void readCSVFile(String filename, ArrayList<Activity> activities, boolean hasHeaders) throws IOException {
         File f = new File(filename);
         Scanner in = new Scanner(f);
@@ -50,11 +49,13 @@ public class Main {
         System.out.println("5: Sort by activity duration (Descending)");
         System.out.println("6: Sort by type of activity");
         System.out.println("7: Sort by distance (Ascending)");
-        System.out.println("8: Sort by distance (Descending)");
+        System.out.printf("8: Sort by distance (Descending)\n");
+        System.out.printf("\n9: view a subset of activities based on specific fields\n");
     }
 
 
     public static void displayTable(ArrayList<Activity> entries) {
+
         System.out.printf("%-20s %-15s %-15s %-15s %-15s %16s %20s%n", "Activity", "Date", "Duration", "Distance", "Average heart rate", "Intensity", "Calories burned");
 
         //set intensity for each line
@@ -66,22 +67,24 @@ public class Main {
         for (Activity s : entries) {
             System.out.printf("%-20s %-15s %-15d %-15.2f %-15d %20s %20.2f%n", s.getActivityType(), s.getDate(), s.getDuration(), s.getDistance(), s.getAverageHeartRate(), s.getIntensity(), s.getCaloriesBurned());
         }
-
     }
+
 
 
 
     public static void main(String[] args) throws IOException {
         ArrayList<Activity> activities = new ArrayList<>();
         System.out.println("\n------Activity table------\n");
-        readCSVFile("activity_data_100.csv", activities, true);
-        System.out.println("\n------Enter a number to sort the table------");
+        readCSVFile("activity_data_50.csv", activities, true);
+
+        System.out.println("\n------Enter a number to sort your table------");
         Scanner input = new Scanner(System.in);
 
         int choice = 0;
         do {
             displayMenu();
             choice = input.nextInt();
+
             switch (choice) {
                 case 1:
                     Collections.sort(activities, new CaloriesBurnedComparator());
@@ -95,7 +98,6 @@ public class Main {
                     Collections.sort(activities, Collections.reverseOrder(new DateComparator()));
                     displayTable(activities);
                     break;
-
                 case 4:
                     Collections.sort(activities, new DurationComparator());
                     displayTable(activities);
@@ -108,7 +110,6 @@ public class Main {
                     Collections.sort(activities, new ActivityNameComparator());
                     displayTable(activities);
                     break;
-
                 case 7:
                     Collections.sort(activities, Collections.reverseOrder(new DistanceComparator()));
                     displayTable(activities);
@@ -118,13 +119,35 @@ public class Main {
                     displayTable(activities);
                     break;
 
+                case 9:   //Allow the user view a subset of their activity based on specific fields
+                    input.nextLine();
+                    System.out.print("Enter the activity type (Running, Swimming, Cycling): ");
+                    String userActivityType = input.nextLine();
+                    System.out.print("Enter the minimum distance to two decimal places: ");
+                    double userMinDistance = input.nextDouble();
+                    input.nextLine();
+                    System.out.print("Enter the type of energy expended (VERY_LIGHT, LIGHT, MODERATE, VIGOROUS, VERY_VIGOROUS): ");
+                    String userEnergyExpendedType = input.nextLine();
+                    System.out.print("Enter the minimum duration as a whole number: ");
+                    int userMinDuration = input.nextInt();
+
+
+                    // filtered activities arraylist
+                    ArrayList<Activity> filteredActivities = new ArrayList<>();
+
+                    for (Activity activity : activities) {
+                        if (activity.getActivityType().equalsIgnoreCase(userActivityType) &&
+                                activity.getDistance() >= userMinDistance &&
+                                activity.getIntensity().name().equalsIgnoreCase(userEnergyExpendedType) &&            //gets the name of the enum value
+                                activity.getDuration() >= userMinDuration) {
+                            filteredActivities.add(activity);
+                        }
+                    }
+
+                    displayTable(filteredActivities);
+                    break;
             }
         }
         while (choice != 0);
-
     }
-
-
-
-
 }
