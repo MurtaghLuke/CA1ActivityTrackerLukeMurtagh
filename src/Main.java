@@ -111,13 +111,18 @@ public class Main {
                     displayTable(activities);
                     break;
                 case 7:
-                    Collections.sort(activities, Collections.reverseOrder(new DistanceComparator()));
+                    //lambda
+                    activities.sort((s1, s2) -> Double.compare(s1.getDistance(), s2.getDistance()));
                     displayTable(activities);
                     break;
                 case 8:
-                    Collections.sort(activities, new DistanceComparator());
-                    displayTable(activities);
+                    //lambda
+                    activities.sort((s1, s2) -> Double.compare(s2.getDistance(), s1.getDistance())); // Reverse order
+                    System.out.println(activities);
                     break;
+
+
+
 
                 case 9:   //Allow the user view a subset of their activity based on specific fields
                     input.nextLine();
