@@ -6,7 +6,12 @@ import java.util.Collections;
 
 public class Main {
     public static void readCSVFile(String filename, ArrayList<Activity> activities, boolean hasHeaders) throws IOException {
-        File f = new File(filename);
+        Scanner input = new Scanner(System.in);
+        System.out.println();
+        System.out.println("Please enter the name of the CSV file you would like to use, followed by .csv:");
+        String userFileChoice = input.nextLine();
+
+        File f = new File(userFileChoice);
         Scanner in = new Scanner(f);
         String line;
         boolean headersRead = false;
@@ -95,8 +100,9 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         ArrayList<Activity> activities = new ArrayList<>();
-        System.out.println("\n------Activity table------\n");
+
         readCSVFile("activity_data_10.csv", activities, true);
+
 
         System.out.println("\n------Enter a number to sort your table------");
         Scanner input = new Scanner(System.in);
