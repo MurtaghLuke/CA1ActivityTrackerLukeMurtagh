@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.Collections;
 
 
 public class Main {
@@ -95,7 +96,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         ArrayList<Activity> activities = new ArrayList<>();
         System.out.println("\n------Activity table------\n");
-        readCSVFile("activity_data_50.csv", activities, true);
+        readCSVFile("activity_data_10.csv", activities, true);
 
         System.out.println("\n------Enter a number to sort your table------");
         Scanner input = new Scanner(System.in);
@@ -132,7 +133,8 @@ public class Main {
                     System.out.println();
                     break;
                 case 6:
-                    Collections.sort(activities, new CaloriesBurnedComparator());
+//                    Collections.sort(activities, new CaloriesBurnedComparator());
+                    Collections.sort(activities, Collections.reverseOrder(new CaloriesBurnedComparator()));
                     displayTable(activities);
                     System.out.println();
                     break;
